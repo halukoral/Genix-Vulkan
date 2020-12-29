@@ -1,29 +1,16 @@
-#define GLFW_INCLUDE_VULKAN
-#include <GLFW/glfw3.h>
 
-#define GLM_FORCE_RADIANS
-#define GLM_FORCE_DEPTH_ZERO_TO_ONE
-#include <GLM/glm.hpp>
-#include <GLM/mat4x4.hpp>
-
+#include "VulkanRenderer.h"
+#include "VulkanWindow.h"
 #include <iostream>
 
 int main()
 {
-	glfwInit();
+	VulkanRenderer* vulkanRenderer = new VulkanRenderer();
 
-	glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-
-	GLFWwindow* window = glfwCreateWindow(1280, 720, "test", nullptr, nullptr);
-
-	while (!glfwWindowShouldClose(window))
+	while (!glfwWindowShouldClose(vulkanRenderer->GetVulkanWindow()->GetWindow()))
 	{
 		glfwPollEvents();
 	}
-
-	glfwDestroyWindow(window);
-
-	glfwTerminate();
 
 	return 0;
 }
