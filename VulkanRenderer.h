@@ -3,9 +3,10 @@
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 
-#include <stdexcept>
+#include <set>
 #include <vector>
 #include <iostream>
+#include <stdexcept>
 
 #include "VulkanWindow.h"
 #include "Utilities.h"
@@ -22,6 +23,8 @@ private:
 	VkInstance		instance;
 	VulkanWindow*	window = nullptr;
 	VkQueue			graphicsQueue;
+	VkQueue			presentationQueue;
+	VkSurfaceKHR	surface;
 
 	struct{
 		VkPhysicalDevice physicalDevice;
@@ -32,11 +35,14 @@ private:
 
 	void				CreateInstance();
 	void				CreateLogicalDevice();
+	void				CreateSurface();
 
 	bool				CheckInstanceExtensionSupport(std::vector<const char*>* checkExtensions);
+	bool				CheckDeviceExtensionSupport(VkPhysicalDevice device);
 	bool				CheckDeviceSuitable(VkPhysicalDevice device);
 
 	QueueFamilyIndices	GetQueueFamilies(VkPhysicalDevice device);
+	SwapChainDetails	GetSwapChainDetails(VkPhysicalDevice device);
 
 };
 
