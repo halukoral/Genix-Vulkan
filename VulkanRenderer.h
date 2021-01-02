@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 
 #include <set>
+#include <array>
 #include <vector>
 #include <iostream>
 #include <stdexcept>
@@ -28,11 +29,16 @@ private:
 	VkSurfaceKHR				surface;
 	VkSwapchainKHR				swapChain;
 
+	// - Pipeline
+	VkPipeline					graphicsPipeline;
+	VkPipelineLayout			pipelineLayout;
+	VkRenderPass				renderPass;
+
 	std::vector<SwapChainImage> swapChainImages;
 
 	struct{
 		VkPhysicalDevice		physicalDevice;
-		VkDevice				locigalDevice;
+		VkDevice				logicalDevice;
 	}mainDevice;
 
 	// Utility
@@ -45,6 +51,8 @@ private:
 	void				CreateLogicalDevice();
 	void				CreateSurface();
 	void				CreateSwapChain();
+	void				CreateGraphicsPipeline();
+	void				CreateRenderPass();
 
 	bool				CheckInstanceExtensionSupport(std::vector<const char*>* checkExtensions);
 	bool				CheckDeviceExtensionSupport(VkPhysicalDevice device);
@@ -58,5 +66,7 @@ private:
 	VkExtent2D			ChooseSwapExtent(const VkSurfaceCapabilitiesKHR& surfaceCapabilities);
 
 	VkImageView			CreateImageView(VkImage image, VkFormat format, VkImageAspectFlags aspectFlags);
+	VkShaderModule		CreateShaderModule(const std::vector<char>& code);
+
 };
 
